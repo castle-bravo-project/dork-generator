@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dork Generator - Google & Shodan Search Tools</title>
+    <meta name="description" content="Generate Google and Shodan dorks for security research and reconnaissance">
+    
+    <!-- Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Custom Tailwind Configuration -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'bg-dark': '#111827',
+                        'text-light': '#f3f4f6',
+                        'primary': '#1e40af',
+                        'accent': '#3b82f6',
+                        'panel': '#1f2937'
+                    },
+                    fontFamily: {
+                        'sans': ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+                        'mono': ['JetBrains Mono', 'Consolas', 'Monaco', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Custom Styles -->
+    <style>
+        .gradient-bg {
+            background: linear-gradient(135deg, #111827 0%, #1f2937 100%);
+        }
+        
+        .glass-effect {
+            backdrop-filter: blur(10px);
+            background: rgba(31, 41, 55, 0.8);
+            border: 1px solid rgba(75, 85, 99, 0.3);
+        }
+        
+        .hover-glow:hover {
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            transform: translateY(-2px);
+            transition: all 0.3s ease;
+        }
+        
+        .loading-spinner {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .pulse-glow {
+            animation: pulseGlow 2s infinite;
+        }
+        
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+        }
+    </style>
+</head>
+<body class="bg-bg-dark text-text-light font-sans min-h-screen gradient-bg">
+    <!-- Header -->
+    <header class="border-b border-gray-700 glass-effect sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-bold text-white">Dork Generator</h1>
+                        <p class="text-sm text-gray-400">Google & Shodan Search Tools</p>
+                    </div>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <button id="privacyBtn" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                        </svg>
+                    </button>
+                    <button id="settingsBtn" class="text-gray-400 hover:text-white transition-colors">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <!-- Dork Type Selection -->
+        <div class="mb-8 fade-in">
+            <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                <button id="googleTab" class="dork-tab active bg-primary hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-medium transition-all hover-glow">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
+                            <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
+                            <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>
+                            <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
+                        </svg>
+                        <span>Google Dorks</span>
+                    </div>
+                </button>
+                <button id="shodanTab" class="dork-tab bg-gray-800 hover:bg-gray-700 text-white px-6 py-3 rounded-lg font-medium transition-all hover-glow">
+                    <div class="flex items-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"></path>
+                        </svg>
+                        <span>Shodan Dorks</span>
+                    </div>
+                </button>
+            </div>
+        </div>
+
+        <!-- Content Panels -->
+        <div class="grid lg:grid-cols-2 gap-8">
+            <!-- Input Panel -->
+            <div class="glass-effect rounded-xl p-6 fade-in">
+                <h2 class="text-xl font-semibold mb-6 text-white">Generate Dorks</h2>
+                
+                <!-- Google Dorks Panel -->
+                <div id="googlePanel" class="dork-panel">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Search Type</label>
+                            <select id="googleSearchType" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-accent focus:border-transparent">
+                                <option value="filetype">File Type Search</option>
+                                <option value="site">Site-specific Search</option>
+                                <option value="inurl">URL Contains</option>
+                                <option value="intitle">Title Contains</option>
+                                <option value="intext">Text Contains</option>
+                                <option value="cache">Cached Pages</option>
+                                <option value="related">Related Sites</option>
+                                <option value="info">Site Info</option>
+                                <option value="define">Define Term</option>
+                                <option value="stocks">Stock Quotes</option>
+                                <option value="weather">Weather Info</option>
+                                <option value="movie">Movie Info</option>
+                                <option value="map">Map Search</option>
+                                <option value="book">Book Search</option>
+                                <option value="custom">Custom Dork</option>
+                            </select>
+                        </div>
+                        
+                        <div id="googleInputs">
+                            <!-- Dynamic inputs will be generated here -->
+                        </div>
+                        
+                        <button id="generateGoogle" class="w-full bg-primary hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-all hover-glow">
+                            Generate Google Dork
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Shodan Dorks Panel -->
+                <div id="shodanPanel" class="dork-panel hidden">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-300 mb-2">Search Type</label>
+                            <select id="shodanSearchType" class="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-accent focus:border-transparent">
+                                <option value="port">Port Search</option>
+                                <option value="country">Country Search</option>
+                                <option value="city">City Search</option>
+                                <option value="org">Organization Search</option>
+                                <option value="hostname">Hostname Search</option>
+                                <option value="net">Network Range</option>
+                                <option value="os">Operating System</option>
+                                <option value="product">Product/Service</option>
+                                <option value="version">Version Search</option>
+                                <option value="ssl">SSL Certificate</option>
+                                <option value="http">HTTP Headers</option>
+                                <option value="vuln">Vulnerability</option>
+                                <option value="custom">Custom Dork</option>
+                            </select>
+                        </div>
+                        
+                        <div id="shodanInputs">
+                            <!-- Dynamic inputs will be generated here -->
+                        </div>
+                        
+                        <button id="generateShodan" class="w-full bg-primary hover:bg-blue-700 text-white py-3 rounded-lg font-medium transition-all hover-glow">
+                            Generate Shodan Dork
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Output Panel -->
+            <div class="glass-effect rounded-xl p-6 fade-in">
+                <div class="flex items-center justify-between mb-6">
+                    <h2 class="text-xl font-semibold text-white">Generated Dork</h2>
+                    <div class="flex space-x-2">
+                        <button id="copyBtn" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-lg text-sm transition-all hover-glow" disabled>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path>
+                            </svg>
+                        </button>
+                        <button id="exportBtn" class="bg-gray-700 hover:bg-gray-600 text-white px-3 py-2 rounded-lg text-sm transition-all hover-glow" disabled>
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                
+                <div id="outputContainer" class="bg-gray-900 border border-gray-700 rounded-lg p-4 min-h-32">
+                    <div class="text-gray-500 text-center py-8">
+                        <svg class="w-12 h-12 mx-auto mb-4 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                        <p>Generated dork will appear here</p>
+                    </div>
+                </div>
+                
+                <div id="dorkHistory" class="mt-6">
+                    <h3 class="text-lg font-medium text-white mb-3">Recent Dorks</h3>
+                    <div id="historyList" class="space-y-2 max-h-64 overflow-y-auto">
+                        <!-- History items will be added here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Privacy Notice -->
+        <div class="mt-8 glass-effect rounded-xl p-6 fade-in">
+            <div class="flex items-start space-x-3">
+                <svg class="w-6 h-6 text-accent mt-1 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
+                </svg>
+                <div>
+                    <h3 class="text-lg font-semibold text-white mb-2">Privacy & Security</h3>
+                    <p class="text-gray-300 text-sm leading-relaxed">
+                        All processing happens locally in your browser. No data is sent to external servers. 
+                        Optional local storage is encrypted and can be cleared at any time. This tool is designed 
+                        for educational and legitimate security research purposes only.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Privacy Modal -->
+    <div id="privacyModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="glass-effect rounded-xl max-w-2xl w-full max-h-96 overflow-y-auto">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-white">Privacy Policy</h3>
+                    <button id="closePrivacyModal" class="text-gray-400 hover:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="text-gray-300 space-y-4 text-sm">
+                    <p><strong>Data Processing:</strong> All dork generation happens locally in your browser. No data is transmitted to external servers.</p>
+                    <p><strong>Local Storage:</strong> We may store your preferences and dork history locally with your consent. This data is encrypted and never leaves your device.</p>
+                    <p><strong>No Tracking:</strong> This application does not use analytics, tracking scripts, or cookies.</p>
+                    <p><strong>Data Deletion:</strong> You can clear all stored data at any time through the settings panel.</p>
+                    <p><strong>Security:</strong> The application is served over HTTPS and follows security best practices.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Modal -->
+    <div id="settingsModal" class="fixed inset-0 bg-black bg-opacity-50 hidden z-50 flex items-center justify-center p-4">
+        <div class="glass-effect rounded-xl max-w-md w-full">
+            <div class="p-6">
+                <div class="flex items-center justify-between mb-4">
+                    <h3 class="text-xl font-semibold text-white">Settings</h3>
+                    <button id="closeSettingsModal" class="text-gray-400 hover:text-white">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <label class="text-gray-300">Save History</label>
+                        <input type="checkbox" id="saveHistoryToggle" class="toggle-checkbox">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="text-gray-300">Auto-copy Generated Dorks</label>
+                        <input type="checkbox" id="autoCopyToggle" class="toggle-checkbox">
+                    </div>
+                    <button id="clearDataBtn" class="w-full bg-red-600 hover:bg-red-700 text-white py-2 rounded-lg transition-all">
+                        Clear All Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript -->
+    <script src="app.js"></script>
+</body>
+</html>
+
